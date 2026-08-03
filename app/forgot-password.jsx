@@ -23,14 +23,6 @@ const ForgotPassword = () => {
 
         <View style={styles.ViewStyle}>
 
-
-
-
-           
-
-
-            
-
             <Text style={[styles.textStyle, {fontSize: 16, fontWeight: '500', opacity: 0.7 }]}>Email</Text>
 
 
