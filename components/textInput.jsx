@@ -7,6 +7,7 @@ const TextInputField = ({
   keyboardType = "default",
   value,
   onChangeText,
+  bordercolor,
 }) => {
   return (
     <View>
@@ -19,7 +20,8 @@ const TextInputField = ({
         placeholderTextColor="#8E8E93"
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
-        style={styles.inputStyle}
+        
+        style={[styles.inputStyle, {borderColor : bordercolor}]}
       />
     </View>
   );
