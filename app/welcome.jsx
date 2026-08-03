@@ -41,7 +41,7 @@ const Welcome = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.cardContainer}>
+        <View style={[styles.cardContainer, {marginTop: -40}]}>
           <Image
             source={require("../assets/images/Recruiter-img.png")}
             style={styles.imageStyle}
@@ -96,6 +96,8 @@ const styles = StyleSheet.create({
            height: 200,
            resizeMode: "contain",
            alignSelf: "center",
+           marginTop: -150,
+           marginBottom: 20
          },
   roleTextStyle: {
     fontSize: 18,
