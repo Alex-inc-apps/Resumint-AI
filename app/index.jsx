@@ -32,6 +32,14 @@ export default function Index() {
       />
 
 
+      {/* Welcome Button */}
+      <ButtonSample 
+      route={'/welcome'}
+      text={'Welcome'}
+      backgroundColor={'pink'}
+      />
+
+
 
 
     </SafeAreaView>

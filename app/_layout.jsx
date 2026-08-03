@@ -7,6 +7,7 @@ export default function RootLayout() {
     <Stack.Screen name= 'create'/>
     <Stack.Screen name= 'sign-in'/>
     <Stack.Screen name= 'forgot-password'/>
+    <Stack.Screen name= 'welcome'/>
 
   </Stack>
   )
