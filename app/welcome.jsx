@@ -1,11 +1,11 @@
 import { router } from "expo-router";
 import {
-    Dimensions,
-    Image,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/header";
@@ -17,13 +17,21 @@ const Welcome = () => {
       <Header text={"Welcome"} />
 
       <View style={styles.contentContainer}>
-        <View style={styles.cardContainer}>
+        {/* Image logo */}
+                       <Image
+                         source={require("../assets/images/Resumint-R2(1).png")}
+                         style={styles.newImageStyle}/>
+
+           <Text style={styles.welcomeText}>Welcome! Select your path</Text>
+        
+        <View style={[styles.cardContainer, {marginTop: -20}]}>
+         
           <Image
             source={require("../assets/images/Applicant-img.png")}
-            style={styles.imageStyle}
+            style={[styles.imageStyle, {marginTop: -10}]}
           />
 
-          <Text style={styles.roleTextStyle}>Applicant</Text>
+          <Text style={styles.roleTextStyle }>Applicant</Text>
 
           <TouchableOpacity
             style={styles.buttonStyle}
@@ -40,7 +48,7 @@ const Welcome = () => {
           />
           <Text style={styles.roleTextStyle}>Recruiter</Text>
           <TouchableOpacity
-            style={styles.buttonStyle}
+            style={[styles.buttonStyle, {backgroundColor: '#07112D'}]}
             onPress={() => router.push("/sign-in")}
           >
             <Text style={styles.buttonTextStyle}>Continue</Text>
@@ -73,20 +81,27 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     padding: 20,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#E5E5EA",
-    backgroundColor: "#F5F5F5",
+
+   
   },
   imageStyle: {
     width: 200,
     height: 200,
     resizeMode: "contain",
     alignSelf: "center",
+    marginBottom: -20,
   },
+  newImageStyle: {
+           width: 200,
+           height: 200,
+           resizeMode: "contain",
+           alignSelf: "center",
+         },
   roleTextStyle: {
     fontSize: 18,
     fontWeight: "700",
     color: "#111111",
+    marginBottom: 10,
   },
   buttonStyle: {
     backgroundColor: "#1F6FEB",
@@ -94,10 +109,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 18,
     alignItems: "center",
+    width: '60%'
   },
   buttonTextStyle: {
     color: "#FFFFFF",
     fontSize: 14,
     fontWeight: "700",
   },
+  welcomeText: {
+    alignSelf: 'center',
+    fontSize: 23,
+    fontWeight: 'bold'
+  }
 });

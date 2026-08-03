@@ -16,6 +16,7 @@ const ForgotPassword = () => {
             text={'Forgot Password'}
             />
         <View style={{marginHorizontal: 30}}>
+            
 
             <Text style={styles.textStyle}>Enter the email associated with your account and we’ll send a reset link.</Text>
            
