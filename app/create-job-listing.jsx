@@ -1,5 +1,6 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonSample from '../components/button';
 import Dropdown from "../components/dropdown";
@@ -15,6 +16,8 @@ const CreateJobListing = () => {
 
 
     return(
+
+        <ScrollView>
         <SafeAreaView >
 
             <Header text={''}/>
@@ -22,7 +25,7 @@ const CreateJobListing = () => {
             <View style={[styles.viewStyle, {marginTop: -10}]}>
                 
                 <Text style={styles.headerTextStyle}>Create Job Listing</Text>
-                <Text style={styles.subTextStyle}>Enter the job details son we can help you attract</Text>
+                <Text style={styles.subTextStyle}>Enter the job details on we can help you attract</Text>
                 <Text style={[styles.subTextStyle, {marginTop: -10}]}>top talent</Text>
             </View>
 
@@ -118,31 +121,31 @@ const CreateJobListing = () => {
 
             </View>
                 <View style={styles.viewButton}>
-                    <ButtonSample
-                        backgroundColor={'black'}
-                        width={'40%'}
-                        text={'Cancel'}
-                        height={'120%'}
-                        fontColor={'white'}
-                        fontSize={16}
-                        route={''}
-                        
-                    />
+                    <TouchableOpacity
+                          onPress={() => {
+                            router.back();
+                          }}
+                          style={[styles.touchableStyle,  ]}
+                        >
+                          <Text style={styles.touchableTextStyle}>Cancel</Text>
+                        </TouchableOpacity>
 
 
                     <ButtonSample
                         backgroundColor={'#1348D5'}
                         width={'40%'}
                         text={'Post Job'}
-                        height={'120%'}
+                        height={'120%'} 
                         fontColor={'white'}
                         fontSize={16}
-                        route={''}
+                        route={'./jobDescSuccess'}
                         
                     />
                 </View>
 
         </SafeAreaView>
+
+        </ScrollView>
 
     )
 
@@ -242,7 +245,24 @@ const styles = StyleSheet.create({
         marginTop: 15,
         flexDirection: 'row',
         paddingHorizontal: 20
-    }
+    },
+
+     touchableStyle: {
+    borderRadius: 20,
+    padding: 15,
+    alignItems: "center",
+    marginHorizontal: 20,
+    backgroundColor: '#000000',
+    height: '120%',
+    width: '40%'
+  },
+
+  touchableTextStyle: {
+    color: 'white'
+
+
+  }
+  
     
 
 

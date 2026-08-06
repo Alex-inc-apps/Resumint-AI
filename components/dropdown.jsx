@@ -14,7 +14,7 @@ const Dropdown = ({ label, options, value, onSelect, width, selectText, marginHo
         </TouchableOpacity>
 
         {open && (
-            <View style={[styles.dropdownList, { width: '100%', marginHorizontal: marginHorizontal }]}>
+            <View style={[styles.dropdownList, { width: '100%', marginHorizontal: marginHorizontal, position: 'static'}]}>
                     {options.map((option) => (
                         <TouchableOpacity
                             key={option}

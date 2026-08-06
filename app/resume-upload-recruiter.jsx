@@ -1,4 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -53,7 +54,7 @@ const ResumeUploadRecruiter = () => {
             role.
           </Text>
           <TouchableOpacity
-            onPress={(router) => router.push("")}
+            onPress={() => router.push("./create-job-listing")}
             style={styles.secondaryButtonStyle}
           >
             <Text style={styles.secondaryButtonTextStyle}>
