@@ -18,38 +18,52 @@ const Welcome = () => {
 
       <View style={styles.contentContainer}>
         {/* Image logo */}
-                       <Image
-                         source={require("../assets/images/Resumint-R2(1).png")}
-                         style={styles.newImageStyle}/>
+        <Image
+          source={require("../assets/images/Resumint-R2(1).png")}
+          style={styles.newImageStyle}
+        />
 
-           <Text style={styles.welcomeText}>Welcome! Select your path</Text>
-        
-        <View style={[styles.cardContainer, {marginTop: -20}]}>
-         
+        <Text style={styles.welcomeText}>Welcome! Select your path</Text>
+
+        <View style={[styles.cardContainer, { marginTop: -20 }]}>
           <Image
             source={require("../assets/images/Applicant-img.png")}
-            style={[styles.imageStyle, {marginTop: -10}]}
+            style={[styles.imageStyle, { marginTop: -10 }]}
           />
 
-          <Text style={styles.roleTextStyle }>Applicant</Text>
+          <Text style={styles.roleTextStyle}>Applicant</Text>
 
           <TouchableOpacity
             style={styles.buttonStyle}
-            onPress={() => router.push("/create")}
+            onPress={() =>
+              router.push({
+                pathname: "/create",
+                params: {
+                  role: "candidate",
+                },
+              })
+            }
           >
             <Text style={styles.buttonTextStyle}>Continue</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={[styles.cardContainer, {marginTop: -40}]}>
+        <View style={[styles.cardContainer, { marginTop: -40 }]}>
           <Image
             source={require("../assets/images/Recruiter-img.png")}
             style={styles.imageStyle}
           />
           <Text style={styles.roleTextStyle}>Recruiter</Text>
           <TouchableOpacity
-            style={[styles.buttonStyle, {backgroundColor: '#07112D'}]}
-            onPress={() => router.push("/sign-in")}
+            style={[styles.buttonStyle, { backgroundColor: "#07112D" }]}
+            onPress={() =>
+              router.push({
+                pathname: "/create",
+                params: {
+                  role: "recruiter",
+                },
+              })
+            }
           >
             <Text style={styles.buttonTextStyle}>Continue</Text>
           </TouchableOpacity>
@@ -81,8 +95,6 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     padding: 20,
     borderRadius: 16,
-
-   
   },
   imageStyle: {
     width: 200,
@@ -92,13 +104,13 @@ const styles = StyleSheet.create({
     marginBottom: -20,
   },
   newImageStyle: {
-           width: 200,
-           height: 200,
-           resizeMode: "contain",
-           alignSelf: "center",
-           marginTop: -150,
-           marginBottom: 20
-         },
+    width: 200,
+    height: 200,
+    resizeMode: "contain",
+    alignSelf: "center",
+    marginTop: -150,
+    marginBottom: 20,
+  },
   roleTextStyle: {
     fontSize: 18,
     fontWeight: "700",
@@ -111,7 +123,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 18,
     alignItems: "center",
-    width: '60%'
+    width: "60%",
   },
   buttonTextStyle: {
     color: "#FFFFFF",
@@ -119,8 +131,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   welcomeText: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 23,
-    fontWeight: 'bold'
-  }
+    fontWeight: "bold",
+  },
 });
