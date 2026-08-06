@@ -32,6 +32,12 @@ export default function Index() {
         text={"Welcome"}
         backgroundColor={"orange"}
       />
+      {/* create job listing button */}
+      <ButtonSample
+        route={"/create-job-listing"}
+        text={"Create job listing"}
+        backgroundColor={"#1ff3c1"}
+      />
     </SafeAreaView>
   );
 }
