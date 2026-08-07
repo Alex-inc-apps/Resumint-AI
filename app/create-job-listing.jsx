@@ -17,12 +17,13 @@ const CreateJobListing = () => {
 
     return(
 
-        <ScrollView>
+        
         <SafeAreaView >
+            <ScrollView>
 
             <Header text={''}/>
 
-            <View style={[styles.viewStyle, {marginTop: -10}]}>
+            <View style={[styles.viewStyle, {marginTop: -20}]}>
                 
                 <Text style={styles.headerTextStyle}>Create Job Listing</Text>
                 <Text style={styles.subTextStyle}>Enter the job details on we can help you attract</Text>
@@ -142,10 +143,10 @@ const CreateJobListing = () => {
                         
                     />
                 </View>
-
+                 </ScrollView>
         </SafeAreaView>
 
-        </ScrollView>
+   
 
     )
 
