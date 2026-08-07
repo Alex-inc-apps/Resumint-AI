@@ -1,28 +1,92 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ButtonSample from '../components/button';
 import Dropdown from "../components/dropdown";
 import Header from "../components/header";
+
+
+
+
+
 
 
 const CreateJobListing = () => {
 
 
-    const [employmentType, setEmploymentType] = useState('');
-    const [minExp, setMinExp] = useState('');
-    const [maxExp, setMaxExp] = useState('');
 
+
+
+
+const [jobTitle, setJobTitle] = useState('');
+const [location, setLocation] = useState('');
+const [companyName, setCompanyName] = useState('');
+const [employmentType, setEmploymentType] = useState('');
+const [minExp, setMinExp] = useState('');
+const [maxExp, setMaxExp] = useState('');
+const [jobDescription, setJobDescription] = useState('');
+const [primarySkills, setPrimarySkills] = useState(''); 
+
+
+
+const handlePostJob = async () => {
+    try {
+        const token = await AsyncStorage.getItem("token");
+
+        if (!token) {
+            alert("You must be logged in to post a job.");
+            return;
+        }
+
+        const response = await axios.post(
+            "https://automated-resume-screener-interview.onrender.com/api/recruiter/jobs",
+            {
+                jobTitle: jobTitle,
+                companyName: companyName,
+                primarySkills: primarySkills.split(',').map(skill => skill.trim()),
+                jobDescription: jobDescription,
+                salaryRange: {
+                    min: Number(minExp),
+                    max: Number(maxExp),
+                },
+                location: location,
+            },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        console.log(response.data);
+
+        if (response.data?.success) {
+            router.push('./jobDescSuccess');
+        } else {
+            alert(response.data?.message || "Failed to post job.");
+        }
+    } catch (error) {
+        console.error(JSON.stringify(error.response?.data || error.message));
+        alert(error.response?.data?.error || "Something went wrong.");
+    }
+};
 
     return(
-        <SafeAreaView >
+
+         
+        <SafeAreaView style={{flex: 1}} >
 
             <Header text={''}/>
+           <ScrollView 
+           style={{flex: 1}}
+           contentContainerStyle={{padding: 20}}>
 
-            <View style={[styles.viewStyle, {marginTop: -10}]}>
+            
+
+            <View style={[styles.viewStyle, {marginTop: -20}]}>
                 
                 <Text style={styles.headerTextStyle}>Create Job Listing</Text>
-                <Text style={styles.subTextStyle}>Enter the job details son we can help you attract</Text>
+                <Text style={styles.subTextStyle}>Enter the job details on we can help you attract</Text>
                 <Text style={[styles.subTextStyle, {marginTop: -10}]}>top talent</Text>
             </View>
 
@@ -30,20 +94,48 @@ const CreateJobListing = () => {
             <View style={styles.nViewStyle}>
                 <Text style={styles.labelStyle}>Job Title</Text>
                 <TextInput
+                value={jobTitle}
+                onChangeText={setJobTitle}
                 placeholder="e.g Marketing Manager"
+                placeholderTextColor={'#cbc6c6'}
                 style={styles.textInputStyle }/>
             </View>
+
+            <View style={styles.nViewStyle}>
+                <Text style={styles.labelStyle}>Company Name</Text>
+                <TextInput
+                    placeholder="e.g Example Inc"
+                    value={companyName}
+                    onChangeText={setCompanyName}
+                    style={styles.textInputStyle}/>
+            </View>
+
+            <View style={styles.nViewStyle}>
+                <Text style={styles.labelStyle}>Skills (comma separated)</Text>
+                <TextInput
+                    placeholderTextColor={'#cbc6c6'}
+                    placeholder="e.g React, Node.js, PostgreSQL"
+                    value={primarySkills}
+                    onChangeText={setPrimarySkills}
+                    style={styles.textInputStyle}/>
+                    
+            </View>
+            
 
              {/* Location text & TextInput */}
             <View style={styles.nViewStyle}>
                 <Text style={styles.labelStyle}>Location</Text>
                 <TextInput
+                placeholderTextColor={'#cbc6c6'}
+                value={location}
+                onChangeText={setLocation}
                 placeholder="e.g Enugu, Enugu"
                 style={styles.textInputStyle }/>
+                 
             </View>
 
 
-            <View style={[styles.nViewStyle, {marginTop: 20, flexDirection: 'row', gap: 8,}]}>
+            <View style={[styles.nViewStyle, {marginTop: 20, flexDirection: 'row', gap: 8, justifyContent: 'space-between', }]}>
                 <Dropdown
                 label="Employment Type"
                 options={['Full Time', 'Part Time', 'Contract']}
@@ -52,45 +144,40 @@ const CreateJobListing = () => {
                 width={'50%'}
                 selectText={'Select'}
                 />
+                <View style={{ width: '48%' }}>
+                    <Text style={styles.salaryLabel}>Salary Range</Text>
 
-                <Dropdown
-                label=""
-                options={['Full Time', 'Part Time', 'Contract']}
-                value={minExp}
-                onSelect={setEmploymentType}
-                width={'22.5%'}
-                selectText={'Min'}
+                <View style={{ flexDirection: 'row', gap: 8 }}>
+                    <TextInput
+                    value={minExp}
+                    onChangeText={setMinExp}
+                    placeholder="Min"
+                    keyboardType="numeric"
+                    style={[styles.txtInput, { flex: 1 }]}
                 />
 
-                <Dropdown
-                label=""
-                options={['Full Time', 'Part Time', 'Contract']}
-                value={maxExp}
-                onSelect={setEmploymentType}
-                width={'22.5%'}
-                selectText={'Max'}
-                />
+                    <TextInput
+                    value={maxExp}
+                    onChangeText={setMaxExp}
+                    placeholder="Max"
+                    keyboardType="numeric"
+                    style={[styles.txtInput, { flex: 0.6 }]}
+                    />
+                </View>
+            </View>
             </View>
 
             <View style={[styles.nViewStyle,{marginTop: 25}]}>
                 <TextInput
+                value={jobDescription}
+                onChangeText={setJobDescription}
                 multiline
                 placeholder="Describe the responsibilities, qualifications, and benefits  for this position... "
                 style={styles.bigTextInputStyle }
                 placeholderTextColor={'#2a2727'}/>
             </View>
 
-            <View>
-                 <Dropdown
-                label=""
-                options={['Full Time', 'Part Time', 'Contract']}
-                value={maxExp}
-                onSelect={setEmploymentType}
-                width={'90%'}
-                selectText={'Job Templates'}
-                marginHorizontal={20}
-                />
-            </View>
+            
 
             <View style={styles.tipsView}>
                 <Text style={styles.tipsText}>Tips</Text>
@@ -118,31 +205,29 @@ const CreateJobListing = () => {
 
             </View>
                 <View style={styles.viewButton}>
-                    <ButtonSample
-                        backgroundColor={'black'}
-                        width={'40%'}
-                        text={'Cancel'}
-                        height={'120%'}
-                        fontColor={'white'}
-                        fontSize={16}
-                        route={''}
-                        
-                    />
+                    <TouchableOpacity
+                          onPress={() => {
+                            router.back();
+                          }}
+                          style={[styles.touchableStyle,  ]}
+                        >
+                          <Text style={styles.touchableTextStyle}>Cancel</Text>
+                        </TouchableOpacity>
 
 
-                    <ButtonSample
-                        backgroundColor={'#1348D5'}
-                        width={'40%'}
-                        text={'Post Job'}
-                        height={'120%'}
-                        fontColor={'white'}
-                        fontSize={16}
-                        route={''}
+                    <TouchableOpacity
+                        onPress={handlePostJob}
+                        style={[styles.touchableStyle, { backgroundColor: '#1348D5' }]}
+                    >
+                        <Text style={styles.touchableTextStyle}>Post Job</Text>
+                    </TouchableOpacity>
                         
-                    />
+                    
                 </View>
-
+                </ScrollView>
         </SafeAreaView>
+         
+   
 
     )
 
@@ -172,7 +257,7 @@ const styles = StyleSheet.create({
     },
 
     subTextStyle: {
-        fontSize: 17,
+        fontSize: 16,
         color: '#000000',
         fontWeight: '300'
     },
@@ -182,6 +267,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginTop: 20
     },
+
+    salaryLabel: {
+    fontSize: 17,
+    paddingHorizontal: 2,
+    marginBottom: 6,
+},
 
     textInputStyle: { 
         borderWidth: 1,
@@ -242,7 +333,35 @@ const styles = StyleSheet.create({
         marginTop: 15,
         flexDirection: 'row',
         paddingHorizontal: 20
-    }
+    },
+
+     touchableStyle: {
+    borderRadius: 20,
+    padding: 15,
+    alignItems: "center",
+    marginHorizontal: 20,
+    backgroundColor: '#000000',
+    height: '120%',
+    width: '40%'
+  },
+
+  touchableTextStyle: {
+    fontSize: 17,
+    color: 'white',
+    
+
+
+  },
+
+  txtInput: {height: 43,
+             width: '23%',
+             borderWidth: 1,
+            borderRadius: 8,
+            justifyContent: 'center',
+            paddingHorizontal: 5
+            
+            }
+  
     
 
 

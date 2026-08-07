@@ -2,6 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
+<<<<<<< HEAD
 const Header = ({
   text,
   showMenuButton = true,
@@ -11,6 +12,10 @@ const Header = ({
   profileImage,
   onProfileImagePress,
 }) => {
+=======
+
+const Header = ({ text }) => {
+>>>>>>> 231976957f1f540000a5fabbe0fc0f88226149bf
   const handleBackPress = () => {
     if (router.canGoBack()) {
       router.back();
