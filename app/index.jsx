@@ -38,6 +38,13 @@ export default function Index() {
         text={"Create job listing"}
         backgroundColor={"#1ff3c1"}
       />
+
+        {/* recruiter home button */}
+      <ButtonSample
+        route={"dashboard"}
+        text={"home/ recruiter"}
+        backgroundColor={"#1ff3c1"}
+      />
     </SafeAreaView>
   );
 }

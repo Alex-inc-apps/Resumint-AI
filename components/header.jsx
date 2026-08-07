@@ -2,6 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+
 const Header = ({ text }) => {
   const handleBackPress = () => {
     if (router.canGoBack()) {

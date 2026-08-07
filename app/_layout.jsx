@@ -14,6 +14,7 @@ export default function RootLayout() {
       <Stack.Screen name="upload-success" />
       <Stack.Screen name= 'create-job-listing'/>
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="(tabs-recruiter)" />
     </Stack>
   );
 }
