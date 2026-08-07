@@ -61,7 +61,7 @@ const Welcome = () => {
 
           <TouchableOpacity
             style={styles.getStartedButton}
-            onPress={() => router.push("/sign-in")}
+            onPress={() => router.push("/welcome")}
           >
             <Text style={styles.getStartedText}>GET STARTED</Text>
           </TouchableOpacity>
