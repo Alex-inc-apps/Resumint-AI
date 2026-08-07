@@ -29,7 +29,12 @@ const ResumeUploadRecruiter = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Job Describtion"} />
+      <Header
+        text="Job Description"
+        showMenuButton={false}
+        showNotification={false}
+        showProfileImage={false}
+      />
 
       <View style={styles.contentContainer}>
         <View style={styles.greetingContainer}>

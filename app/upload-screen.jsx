@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 import * as DocumentPicker from "expo-document-picker";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -30,7 +32,7 @@ const UploadScreen = () => {
         copyToCacheDirectory: true,
       });
 
-      if (result.canceled) {
+      if (!result.canceled) {
         setResume(result.assets?.[0]);
         console.log(result.assets?.[0]);
       }
@@ -43,40 +45,68 @@ const UploadScreen = () => {
       setResume({
         name: selectedFile.name,
         uri: selectedFile.uri,
+        mimeType: selectedFile.mimeType || "application/pdf",
       });
     } catch (error) {
+      console.log(JSON.stringify(error, null, 2));
       Alert.alert("Error", "Unable to open file picker. Please try again.");
-      console.error("Document picker error:", error);
     }
   };
 
-  const handleDrop = (event) => {
-    event.preventDefault?.();
-
-    const droppedFiles = event.dataTransfer?.files;
-    const droppedFile = droppedFiles?.[0];
-
-    if (!droppedFile) {
+  const handleUpload = async () => {
+    if (!resume?.uri) {
+      Alert.alert("Please select a resume.");
       return;
     }
 
-    setResume({
-      name: droppedFile.name,
-      uri: droppedFile.name,
-    });
-  };
+    try {
+      const token = await AsyncStorage.getItem("token");
 
-  const handleUpload = () => {
-    if (!resume) {
-      Alert.alert("No file selected", "Please select a file to upload.");
-      return;
+      if (!token) {
+        Alert.alert("Error", "Please sign in before uploading your resume.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", {
+        uri: resume.uri,
+        name: resume.name,
+        type: resume.mimeType || "application/pdf",
+      });
+
+      const response = await axios.post(
+        "https://automated-resume-screener-interview.onrender.com/api/candidate/resume/file",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
+      console.log(response.data);
+
+      if (response.data.success) {
+        Alert.alert("Resume uploaded successfully!");
+        router.push("/upload-success");
+      } else {
+        Alert.alert(response.data.message);
+      }
+    } catch (error) {
+      console.log(JSON.stringify(error, null, 2));
+      Alert.alert("Error", "Unable to upload file. Please try again.");
     }
-
-    router.push("/upload-success");
   };
+
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Upload Your Resume"} />
+      <Header
+        text="Upload Your Resume"
+        showMenuButton={false}
+        showNotification={false}
+        showProfileImage={false}
+      />
 
       <View style={styles.contentContainer}>
         <View style={styles.infoBlock}>
@@ -118,23 +148,22 @@ const UploadScreen = () => {
               : "No file selected. Please select a file to upload."}
           </Text>
 
-          <TouchableOpacity
-            style={styles.dropZoneStyle}
-            onPress={pickResume}
-            onDragOver={(event) => event.preventDefault?.()}
-            onDrop={handleDrop}
-          >
-            <Text style={styles.helperTextStyle}>
-              {resume
-                ? "File selected. You can browse again to change it."
-                : "or Drag and drop your file here"}
-            </Text>
-          </TouchableOpacity>
+          <Text style={styles.helperTextStyle}>
+            {resume && "File selected. You can browse again to change it."}
+          </Text>
+          <View />
         </View>
       </View>
 
       <TouchableOpacity style={styles.uploadButtonStyle} onPress={handleUpload}>
         <Text style={styles.uploadButtonTextStyle}>Upload</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.uploadButtonStyle}
+        onPress={() => router.push("/dashboard")}
+      >
+        <Text style={styles.uploadButtonTextStyle}>procceed to Dashboard</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

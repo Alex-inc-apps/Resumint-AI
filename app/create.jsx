@@ -63,7 +63,12 @@ const Create = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Create Account"} />
+      <Header
+        text="Create Account"
+        showMenuButton={false}
+        showNotification={false}
+        showProfileImage={false}
+      />
 
       <View style={styles.contentContainer}>
         <Image

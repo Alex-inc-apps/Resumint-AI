@@ -23,20 +23,20 @@ const TabsLayout = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: "white",
-          borderWidth: 0,
-          height: 100,
-          paddingTop: 20,
-          marginHorizontal: 20,
-          position: "absolute",
-          borderRadius: 50,
-          bottom: 20,
+          // borderWidth: 0,
+          // height: 100,
+          // paddingTop: 20,
+          // marginHorizontal: 20,
+          // position: "absolute",
+          // borderRadius: 50,
+          // bottom: 20,
         },
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "#C1B9F9",
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="dashboard"
         options={{
           title: "Home",
 

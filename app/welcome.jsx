@@ -14,7 +14,12 @@ const { width, height } = Dimensions.get("screen");
 const Welcome = () => {
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Welcome"} />
+      <Header
+        text="Welcome"
+        showMenuButton={false}
+        showNotification={false}
+        showProfileImage={false}
+      />
 
       <View style={styles.contentContainer}>
         {/* Image logo */}

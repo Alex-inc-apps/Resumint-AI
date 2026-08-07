@@ -1,8 +1,16 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-const Header = ({ text }) => {
+const Header = ({
+  text,
+  showMenuButton = true,
+  onMenuPress,
+  showNotification = true,
+  showProfileImage = false,
+  profileImage,
+  onProfileImagePress,
+}) => {
   const handleBackPress = () => {
     if (router.canGoBack()) {
       router.back();
@@ -14,36 +22,99 @@ const Header = ({ text }) => {
 
   return (
     <View style={styles.safeAreaView}>
-      <Pressable onPress={handleBackPress} style={styles.pressableStyle}>
-        <Ionicons name="chevron-back-sharp" size={24} color="black" />
-      </Pressable>
+      <View style={styles.leftSection}>
+        {showMenuButton ? (
+          <Pressable
+            onPress={onMenuPress || handleBackPress}
+            style={styles.squareButtonStyle}
+          >
+            <Ionicons name="menu-outline" size={24} color="#111111" />
+          </Pressable>
+        ) : (
+          <Pressable onPress={handleBackPress} style={styles.squareButtonStyle}>
+            <Ionicons name="chevron-back-sharp" size={24} color="black" />
+          </Pressable>
+        )}
+      </View>
 
       <Text style={styles.textStyle}>{text}</Text>
 
-      <View />
+      <View style={styles.rightSection}>
+        {showNotification ? (
+          <Pressable style={styles.squareButtonStyle}>
+            <Ionicons name="notifications-outline" size={22} color="#111111" />
+          </Pressable>
+        ) : null}
+
+        {showProfileImage ? (
+          <Pressable
+            onPress={onProfileImagePress}
+            style={styles.profileButtonStyle}
+          >
+            <Image
+              source={
+                typeof profileImage === "number"
+                  ? profileImage
+                  : { uri: profileImage }
+              }
+              style={styles.profileImageStyle}
+            />
+          </Pressable>
+        ) : null}
+      </View>
     </View>
   );
 };
 
 export const styles = StyleSheet.create({
   safeAreaView: {
-    gap: 10,
     flexDirection: "row",
-    padding: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     alignItems: "center",
     justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E7EAF2",
   },
-  pressableStyle: {
-    backgroundColor: "white",
+  leftSection: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rightSection: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  squareButtonStyle: {
+    backgroundColor: "#F2F4F8",
     borderRadius: 20,
-    height: 32,
-    width: 32,
+    height: 40,
+    width: 40,
     alignItems: "center",
     justifyContent: "center",
+    marginHorizontal: 4,
+  },
+  profileButtonStyle: {
+    marginLeft: 8,
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "#DDE2F0",
+  },
+  profileImageStyle: {
+    width: "100%",
+    height: "100%",
   },
   textStyle: {
-    fontSize: 20,
-    fontWeight: "bold",
+    flex: 1,
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#111111",
   },
 });
 

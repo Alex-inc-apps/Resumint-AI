@@ -68,7 +68,12 @@ const SignIn = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Sign In"} />
+      <Header
+        text="Sign-In"
+        showMenuButton={false}
+        showNotification={false}
+        showProfileImage={false}
+      />
 
       <View style={styles.contentContainer}>
         {/* Image logo */}

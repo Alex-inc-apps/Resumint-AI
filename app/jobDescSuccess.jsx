@@ -1,12 +1,12 @@
 import { router } from "expo-router";
 import { useEffect, useRef } from "react";
 import {
-    Animated,
-    Dimensions,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Animated,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/header";
@@ -82,7 +82,12 @@ const JobDecsSuccess = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Successfully Uploaded"} />
+      <Header
+        text="Successfully Uploaded"
+        showMenuButton={false}
+        showNotification={false}
+        showProfileImage={false}
+      />
       <View style={styles.contentContainer}>
         <Animated.View
           style={[
@@ -115,7 +120,7 @@ const JobDecsSuccess = () => {
       </View>
       <TouchableOpacity
         style={styles.continueBtn}
-        onPress={() => router.push("(tabs)/home")}
+        onPress={() => router.push("/dashboard")}
       >
         <Text style={styles.continueText}>Continue to Dashboard</Text>
       </TouchableOpacity>

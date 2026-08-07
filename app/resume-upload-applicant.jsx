@@ -1,9 +1,8 @@
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../components/header";
 
 const ResumeUploadApplicant = () => {
@@ -27,11 +26,17 @@ const ResumeUploadApplicant = () => {
     }
   };
 
-  const avatarSource = typeof image === "number" ? image : { uri: image };
-
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Upload Resume"} />
+      <Header
+        text={"Upload Resume"}
+        showNotification={false}
+        showProfileImage
+        profileImage={image}
+        onProfileImagePress={pickImage}
+        onMenuPress={() => {}}
+        showMenuButton={false}
+      />
 
       <View style={styles.contentContainer}>
         <View style={styles.greetingContainer}>
@@ -42,9 +47,6 @@ const ResumeUploadApplicant = () => {
                 Let us help you get ready for your next role.
               </Text>
             </View>
-            <TouchableOpacity onPress={pickImage}>
-              <Image source={avatarSource} style={styles.avatarStyle} />
-            </TouchableOpacity>
           </View>
         </View>
 

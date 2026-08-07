@@ -82,7 +82,12 @@ const UploadSuccess = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <Header text={"Upload Successful"} />
+      <Header
+        text="Upload Successful"
+        showMenuButton={false}
+        showNotification={false}
+        showProfileImage={false}
+      />
       <View style={styles.contentContainer}>
         <Animated.View
           style={[
@@ -117,7 +122,7 @@ const UploadSuccess = () => {
       </View>
       <TouchableOpacity
         style={styles.continueBtn}
-        onPress={() => router.push("(tabs)/home")}
+        onPress={() => router.push("(tabs)/dashboard")}
       >
         <Text style={styles.continueText}>Continue to Dashboard</Text>
       </TouchableOpacity>
