@@ -46,9 +46,9 @@ const RTabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="resume-analysis"
+        name="job-analysis"
         options={{
-          title: "Resume Analysis",
+          title: "Job Analysis",
           tabBarIcon: ({ focused, color }) => (
             <FontAwesome5
               name="file-contract"

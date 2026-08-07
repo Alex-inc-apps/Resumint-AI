@@ -1,7 +1,8 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/header";
 
-const JobMatches = () => {
+const ResumeAnalysis = () => {
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <Header text={"Job Matches"} />
@@ -17,7 +18,7 @@ const JobMatches = () => {
   );
 };
 
-export default JobMatches;
+export default ResumeAnalysis;
 
 const styles = StyleSheet.create({
   safeAreaViewStyle: {
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
 
     fontWeight: "700",
-    color: "#111111",
+    color: '#1348D5',
     marginBottom: 10,
   },
   descriptionStyle: {

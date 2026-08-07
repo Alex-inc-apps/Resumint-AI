@@ -1,21 +1,22 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/header";
 
-const myResume = () => {
+const CandidateList = () => {
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <Header text={"My Resume"} />
       <View style={styles.contentContainer}>
-        <Text style={styles.titleStyle}>Welcome to the My Resume Screen!</Text>
+        <Text style={styles.titleStyle}>Candidate List</Text>
         <Text style={styles.descriptionStyle}>
-          This is the main landing page of the app.
+          Here are your candidate lists.
         </Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default myResume;
+export default CandidateList;
 
 const styles = StyleSheet.create({
   safeAreaViewStyle: {
@@ -30,9 +31,8 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontSize: 24,
-
     fontWeight: "700",
-    color: "#111111",
+    color: '#1348D5',
     marginBottom: 10,
   },
   descriptionStyle: {

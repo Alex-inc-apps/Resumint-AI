@@ -1,21 +1,22 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../../components/header";
 
-const Profile = () => {
+const Rankings = () => {
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <Header text={"Profile"} />
       <View style={styles.contentContainer}>
-        <Text style={styles.titleStyle}>Welcome to the Profile Screen!</Text>
+        <Text style={styles.titleStyle}>Rankings</Text>
         <Text style={styles.descriptionStyle}>
-          This is the main landing page of the app.
+          Here are the rankings.
         </Text>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Profile;
+export default Rankings;
 
 const styles = StyleSheet.create({
   safeAreaViewStyle: {
@@ -29,10 +30,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   titleStyle: {
+    color: '#1348D5',
     fontSize: 24,
-
     fontWeight: "700",
-    color: "#111111",
     marginBottom: 10,
   },
   descriptionStyle: {
